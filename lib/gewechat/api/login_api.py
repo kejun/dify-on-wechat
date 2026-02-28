@@ -22,9 +22,10 @@ class LoginApi:
 
     def get_qr(self, app_id):
         """获取登录二维码"""
-        param = {
-            "appId": app_id
-        }
+        app_id = app_id.strip() if isinstance(app_id, str) else ""
+        param = {}
+        if app_id:
+            param["appId"] = app_id
         return post_json(self.base_url, "/login/getLoginQrCode", self.token, param)
 
     def check_qr(self, app_id, uuid, captch_code):
